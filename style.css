@@ -15,7 +15,7 @@ body {
   flex-wrap: wrap;
   width: 600px;
   height: 600px;
-  border: 1em rgb(0, 0, 0 / 0.6);
+  border: 1em solid rgb(0, 0, 0, 0.6);
   background-color: red;
 }
 
