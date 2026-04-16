@@ -9,6 +9,14 @@ function main() {
 
       square.classList.add("square");
 
+      square.addEventListener("mouseover", (e) => {
+        e.target.style.backgroundColor = "red";
+      });
+
+      square.addEventListener("mouseout", (e) => {
+        e.target.style.backgroundColor = "blue";
+      });
+
       containerDiv.appendChild(square);
     }
   }
