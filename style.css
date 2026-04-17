@@ -14,10 +14,9 @@ body {
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
-  /* temporary clamping size logic  */
   width: 50%;
   aspect-ratio: 1 / 1;
-  /* border: 1em solid rgb(0, 0, 0, 0.6); */
+  border: 1em solid rgb(0, 0, 0, 0.6);
   background-color: red;
 }
 
