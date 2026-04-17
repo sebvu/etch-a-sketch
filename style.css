@@ -13,6 +13,7 @@ body {
   box-sizing: content-box;
   display: flex;
   flex-wrap: wrap;
+  flex-direction: column;
   /* temporary clamping size logic  */
   max-width: 600px;
   max-height: 600px;
@@ -22,7 +23,13 @@ body {
   background-color: red;
 }
 
+.row-container {
+  display: flex;
+  flex: 1;
+}
+
 .square {
   border: 1px solid green;
   background-color: blue;
+  flex: auto;
 }

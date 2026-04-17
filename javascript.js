@@ -37,33 +37,33 @@ function main() {
 function resizeGrid(newGridSize) {
   const containerDiv = document.getElementById("main-container");
   const oldTotalSquares = containerDiv.childNodes.length;
-  const totalNewSquares = newGridSize ** 2;
 
   // clear container div completely
   for (let _ = 0; _ < oldTotalSquares; _++) {
     containerDiv.removeChild(containerDiv.firstChild);
   }
 
-  // populate with new squares
-  for (let _ = 0; _ < totalNewSquares; _++) {
-    const square = document.createElement("div");
+  // create new row container to populate w/squares
+  for (let row = 0; row < newGridSize; row++) {
+    const rowContainer = document.createElement("div");
 
-    square.classList.add("square");
+    rowContainer.classList.add("row-container")
 
-    // temporary clamping size logic
-    square.style.maxWidth = `${containerDiv.offsetWidth / newGridSize}px`;
-    square.style.maxHeight = `${containerDiv.offsetHeight / newGridSize}px`;
-    square.style.minWidth = `${containerDiv.offsetWidth / newGridSize}px`;
-    square.style.minHeight = `${containerDiv.offsetHeight / newGridSize}px`;
+  // populate rowcontainer w/squares
+    for (let square = 0; square < newGridSize; square++) {
+      const square = document.createElement("div");
+      square.classList.add("square");
 
-    square.addEventListener("mouseover", (e) => {
-      e.target.style.backgroundColor = "red";
-    });
+      square.addEventListener("mouseover", (e) => {
+        e.target.style.backgroundColor = "red";
+      });
 
-    square.addEventListener("mouseout", (e) => {
-      e.target.style.backgroundColor = "blue";
-    });
+      // square.addEventListener("mouseout", (e) => {
+      //   e.target.style.backgroundColor = "blue";
+      // });
 
-    containerDiv.appendChild(square);
+      rowContainer.appendChild(square);
+    }
+    containerDiv.appendChild(rowContainer);
   }
 }
