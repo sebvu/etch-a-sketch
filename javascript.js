@@ -26,27 +26,49 @@ function main() {
           promptText = "not between 5 and 30, try again";
           break;
         default:
-          rewriteGrid(newGridSize);
+          rewriteGrid(newGridSize, containerDiv);
           break outer;
       }
     }
   });
 }
 
-function rewriteGrid(gridSize, containerDiv) {
-  for (let _ = 0; _ < gridSize ** 2; _++) {
-    const square = document.createElement("div");
+function rewriteGrid(newGridSize, containerDiv) {
+  const totalNewSquares = newGridSize ** 2;
 
-    square.classList.add("square");
+  function increaseGridBy(incAmount) {
+    for (let _ = 0; _ < incAmount; _++) {
+      const square = document.createElement("div");
 
-    square.addEventListener("mouseover", (e) => {
-      e.target.style.backgroundColor = "red";
-    });
+      square.classList.add("square");
 
-    square.addEventListener("mouseout", (e) => {
-      e.target.style.backgroundColor = "blue";
-    });
+      square.addEventListener("mouseover", (e) => {
+        e.target.style.backgroundColor = "red";
+      });
 
-    containerDiv.appendChild(square);
+      square.addEventListener("mouseout", (e) => {
+        e.target.style.backgroundColor = "blue";
+      });
+
+      containerDiv.appendChild(square);
+    }
+  }
+
+  function decreaseGridBy(decAmount) {
+    for (let _ = 0; _ < decAmount; _++) {
+      containerDiv.removeChild(containerDiv.firstChild);
+    }
+  }
+
+  let diffGridSize = containerDiv.childNodes.length - totalNewSquares;
+
+  switch (true) {
+    case diffGridSize < 0: // increase grid size
+      increaseGridBy(Math.abs(diffGridSize));
+      break;
+    case diffGridSize > 0: // decrease grid size
+      decreaseGridBy(diffGridSize);
+    default:
+      break; // no grid changes
   }
 }
