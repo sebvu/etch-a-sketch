@@ -9,7 +9,7 @@ body {
   height: 100vh;
 }
 
-.main-container {
+#main-container {
   box-sizing: content-box;
   display: flex;
   flex-wrap: wrap;

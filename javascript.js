@@ -3,9 +3,8 @@ main();
 function main() {
   const DEFAULT_SIZE = 16;
   const btn = document.querySelector("button");
-  const containerDiv = document.querySelector("div");
 
-  resizeGrid(DEFAULT_SIZE, containerDiv);
+  resizeGrid(DEFAULT_SIZE);
 
   // btn to change grid size
 
@@ -26,14 +25,15 @@ function main() {
           promptText = "not between 5 and 30, try again";
           break;
         default:
-          resizeGrid(newGridSize, containerDiv);
+          resizeGrid(newGridSize);
           break outer;
       }
     }
   });
 }
 
-function resizeGrid(newGridSize, containerDiv) {
+function resizeGrid(newGridSize) {
+  containerDiv = document.getElementById("main-container");
   const totalNewSquares = newGridSize ** 2;
 
   function increaseGridBy(incAmount) {
