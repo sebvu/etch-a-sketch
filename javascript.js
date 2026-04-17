@@ -33,7 +33,7 @@ function main() {
 }
 
 function resizeGrid(newGridSize) {
-  containerDiv = document.getElementById("main-container");
+  const containerDiv = document.getElementById("main-container");
   const totalNewSquares = newGridSize ** 2;
 
   function increaseGridBy(incAmount) {
