@@ -9,7 +9,6 @@ function main() {
   resizeGrid(DEFAULT_SIZE);
 
   // btn to change grid size
-
   btn.addEventListener("click", () => {
     let promptText = `choose a number between ${MIN_GRID_SIZE} and ${MAX_GRID_SIZE}`;
 
@@ -21,10 +20,10 @@ function main() {
         case input === null: // exit button handler for btn
           break outer;
         case isNaN(newGridSize):
-          promptText = "not a number, can u do this again";
+          promptText = "not a number, retry!";
           break;
         case newGridSize < MIN_GRID_SIZE || newGridSize > MAX_GRID_SIZE:
-          promptText = `not between ${MIN_GRID_SIZE} and ${MAX_GRID_SIZE}, try again`;
+          promptText = `not between ${MIN_GRID_SIZE} and ${MAX_GRID_SIZE}, try again!`;
           break;
         default:
           resizeGrid(newGridSize);
@@ -39,7 +38,7 @@ function resizeGrid(newGridSize) {
   const oldTotalSquares = containerDiv.childNodes.length;
 
   // clear container div completely
-  for (let _ = 0; _ < oldTotalSquares; _++) {
+  for (let row = 0; row < oldTotalSquares; row++) {
     containerDiv.removeChild(containerDiv.firstChild);
   }
 
@@ -47,23 +46,26 @@ function resizeGrid(newGridSize) {
   for (let row = 0; row < newGridSize; row++) {
     const rowContainer = document.createElement("div");
 
-    rowContainer.classList.add("row-container")
+    rowContainer.classList.add("row-container");
 
-  // populate rowcontainer w/squares
+    // populate rowcontainer w/squares
     for (let square = 0; square < newGridSize; square++) {
       const square = document.createElement("div");
       square.classList.add("square");
 
-      square.addEventListener("mouseover", (e) => {
-        e.target.style.backgroundColor = "red";
-      });
+      square.style.opacity = "1"; // ensure opacity is ALWAYS one on creation
 
-      // square.addEventListener("mouseout", (e) => {
-      //   e.target.style.backgroundColor = "blue";
-      // });
+      square.addEventListener("mouseover", (e) => {
+        let R = Math.floor(Math.random() * 255);
+        let G = Math.floor(Math.random() * 255);
+        let B = Math.floor(Math.random() * 255);
+        square.style.opacity -= 0.1;
+        e.target.style.backgroundColor = `rgb(${R}, ${G}, ${B}`;
+      });
 
       rowContainer.appendChild(square);
     }
+
     containerDiv.appendChild(rowContainer);
   }
 }
