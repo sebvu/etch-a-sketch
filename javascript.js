@@ -2,6 +2,8 @@ main();
 
 function main() {
   const DEFAULT_SIZE = 16;
+  const MAX_GRID_SIZE = 100;
+  const MIN_GRID_SIZE = 5;
   const btn = document.querySelector("button");
 
   resizeGrid(DEFAULT_SIZE);
@@ -9,20 +11,20 @@ function main() {
   // btn to change grid size
 
   btn.addEventListener("click", () => {
-    let promptText = "choose a number between 5 and 30";
+    let promptText = `choose a number between ${MIN_GRID_SIZE} and ${MAX_GRID_SIZE}`;
 
     outer: while (true) {
       input = prompt(promptText);
       newGridSize = parseInt(input);
 
       switch (true) {
-        case input === null:
+        case input === null: // exit button handler for btn
           break outer;
         case isNaN(newGridSize):
           promptText = "not a number, can u do this again";
           break;
-        case newGridSize < 5 || newGridSize > 30:
-          promptText = "not between 5 and 30, try again";
+        case newGridSize < MIN_GRID_SIZE || newGridSize > MAX_GRID_SIZE:
+          promptText = `not between ${MIN_GRID_SIZE} and ${MAX_GRID_SIZE}, try again`;
           break;
         default:
           resizeGrid(newGridSize);
@@ -34,41 +36,34 @@ function main() {
 
 function resizeGrid(newGridSize) {
   const containerDiv = document.getElementById("main-container");
+  const oldTotalSquares = containerDiv.childNodes.length;
   const totalNewSquares = newGridSize ** 2;
 
-  function increaseGridBy(incAmount) {
-    for (let _ = 0; _ < incAmount; _++) {
-      const square = document.createElement("div");
-
-      square.classList.add("square");
-
-      square.addEventListener("mouseover", (e) => {
-        e.target.style.backgroundColor = "red";
-      });
-
-      square.addEventListener("mouseout", (e) => {
-        e.target.style.backgroundColor = "blue";
-      });
-
-      containerDiv.appendChild(square);
-    }
+  // clear container div completely
+  for (let _ = 0; _ < oldTotalSquares; _++) {
+    containerDiv.removeChild(containerDiv.firstChild);
   }
 
-  function decreaseGridBy(decAmount) {
-    for (let _ = 0; _ < decAmount; _++) {
-      containerDiv.removeChild(containerDiv.firstChild);
-    }
-  }
+  // populate with new squares
+  for (let _ = 0; _ < totalNewSquares; _++) {
+    const square = document.createElement("div");
 
-  let diffGridSize = containerDiv.childNodes.length - totalNewSquares;
+    square.classList.add("square");
 
-  switch (true) {
-    case diffGridSize < 0: // increase grid size
-      increaseGridBy(Math.abs(diffGridSize));
-      break;
-    case diffGridSize > 0: // decrease grid size
-      decreaseGridBy(diffGridSize);
-    default:
-      break; // no grid changes
+    // temporary clamping size logic
+    square.style.maxWidth = `${containerDiv.offsetWidth / newGridSize}px`;
+    square.style.maxHeight = `${containerDiv.offsetHeight / newGridSize}px`;
+    square.style.minWidth = `${containerDiv.offsetWidth / newGridSize}px`;
+    square.style.minHeight = `${containerDiv.offsetHeight / newGridSize}px`;
+
+    square.addEventListener("mouseover", (e) => {
+      e.target.style.backgroundColor = "red";
+    });
+
+    square.addEventListener("mouseout", (e) => {
+      e.target.style.backgroundColor = "blue";
+    });
+
+    containerDiv.appendChild(square);
   }
 }

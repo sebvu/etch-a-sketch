@@ -13,15 +13,16 @@ body {
   box-sizing: content-box;
   display: flex;
   flex-wrap: wrap;
-  width: 600px;
-  height: 600px;
-  border: 1em solid rgb(0, 0, 0, 0.6);
+  /* temporary clamping size logic  */
+  max-width: 600px;
+  max-height: 600px;
+  min-width: 600px;
+  min-height: 600px;
+  /* border: 1em solid rgb(0, 0, 0, 0.6); */
   background-color: red;
 }
 
 .square {
-  width: 37.5px;
-  height: 37.5px;
   border: 1px solid green;
   background-color: blue;
 }
