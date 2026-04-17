@@ -1,23 +1,52 @@
 main();
 
 function main() {
+  const DEFAULT_SIZE = 16;
+  const btn = document.querySelector("button");
   const containerDiv = document.querySelector("div");
-  // generate 16x16 grid square
-  for (let i = 0; i < 16; i++) {
-    for (let j = 0; j < 16; j++) {
-      const square = document.createElement("div");
 
-      square.classList.add("square");
+  rewriteGrid(DEFAULT_SIZE, containerDiv);
 
-      square.addEventListener("mouseover", (e) => {
-        e.target.style.backgroundColor = "red";
-      });
+  // btn to change grid size
 
-      square.addEventListener("mouseout", (e) => {
-        e.target.style.backgroundColor = "blue";
-      });
+  btn.addEventListener("click", () => {
+    let promptText = "choose a number between 5 and 30";
 
-      containerDiv.appendChild(square);
+    outer: while (true) {
+      input = prompt(promptText);
+      newGridSize = parseInt(input);
+
+      switch (true) {
+        case input === null:
+          break outer;
+        case isNaN(newGridSize):
+          promptText = "not a number, can u do this again";
+          break;
+        case newGridSize < 5 || newGridSize > 30:
+          promptText = "not between 5 and 30, try again";
+          break;
+        default:
+          rewriteGrid(newGridSize);
+          break outer;
+      }
     }
+  });
+}
+
+function rewriteGrid(gridSize, containerDiv) {
+  for (let _ = 0; _ < gridSize ** 2; _++) {
+    const square = document.createElement("div");
+
+    square.classList.add("square");
+
+    square.addEventListener("mouseover", (e) => {
+      e.target.style.backgroundColor = "red";
+    });
+
+    square.addEventListener("mouseout", (e) => {
+      e.target.style.backgroundColor = "blue";
+    });
+
+    containerDiv.appendChild(square);
   }
 }
