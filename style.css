@@ -22,6 +22,7 @@ h1 {
   flex-wrap: wrap;
   flex-direction: column;
   width: 50%;
+  max-width: 600px;
   aspect-ratio: 1 / 1;
   border: 1em ridge rgb(255, 141, 161);
   background-color: black;
