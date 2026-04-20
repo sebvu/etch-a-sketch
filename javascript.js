@@ -38,7 +38,7 @@ function resizeGrid(newGridSize) {
   const oldTotalSquares = containerDiv.childNodes.length;
 
   // clear container div completely
-  for (let row = 0; row < oldTotalSquares; row++) {
+  for (let square = 0; square < oldTotalSquares; square++) {
     containerDiv.removeChild(containerDiv.firstChild);
   }
 
@@ -50,20 +50,20 @@ function resizeGrid(newGridSize) {
 
     // populate rowcontainer w/squares
     for (let square = 0; square < newGridSize; square++) {
-      const square = document.createElement("div");
-      square.classList.add("square");
+      const squareContainer = document.createElement("div");
+      squareContainer.classList.add("square");
 
-      square.style.opacity = "1"; // ensure opacity is ALWAYS one on creation
+      squareContainer.style.opacity = "1"; // ensure opacity is ALWAYS one on creation
 
-      square.addEventListener("mouseover", (e) => {
+      squareContainer.addEventListener("mouseover", (e) => {
         let R = Math.floor(Math.random() * 255);
         let G = Math.floor(Math.random() * 255);
         let B = Math.floor(Math.random() * 255);
-        square.style.opacity -= 0.1;
+        squareContainer.style.opacity -= 0.1;
         e.target.style.backgroundColor = `rgb(${R}, ${G}, ${B}`;
       });
 
-      rowContainer.appendChild(square);
+      rowContainer.appendChild(squareContainer);
     }
 
     containerDiv.appendChild(rowContainer);
